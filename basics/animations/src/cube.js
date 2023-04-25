@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import gsap from 'gsap';
 
 const canvas = document.querySelector(".canvas");
 
@@ -77,10 +78,28 @@ const renderer = new THREE.WebGLRenderer({
 
 renderer.setSize(sizes.width, sizes.height);
 
+// three.js Clock
+
+const clock = new THREE.Clock()
+
+gsap.to(cubeGroup.position,{
+  duration: 1,
+  delay: 1,
+  x: 3
+})
+
+gsap.to(cubeGroup.position,{
+  duration: 1,
+  delay: 2,
+  x: 0
+})
+
 // Animatios function
 const frame = function () {
 
-  cubeGroup.rotation.y += 0.01*Math.PI
+  const elapsedTime = clock.getElapsedTime()
+
+  cubeGroup.rotation.y = Math.sin(elapsedTime)
 
   renderer.render(scene, camera);
 
