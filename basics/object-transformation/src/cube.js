@@ -20,6 +20,10 @@ console.log(cubeDistanceFromCenter)
 // Normalise the length of the cube
 // cube.position.normalize()
 
+// Add Axes helper visualisation 
+const axesHelper = new THREE.AxesHelper()
+scene.add(axesHelper)
+
 scene.add(cube);
 
 const sizes = {
