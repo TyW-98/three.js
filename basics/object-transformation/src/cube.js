@@ -13,6 +13,8 @@ const material = new THREE.MeshBasicMaterial({ color: "orange" });
 const cube = new THREE.Mesh(geometry, material);
 cube.position.set(-0.5, -0.75, -1)
 cube.scale.set(2,1,1)
+cube.rotation.reorder("YXZ")
+cube.rotation.set(-0.25*Math.PI,1*Math.PI,0.1*Math.PI)
 
 // Distance of cube from the center of the scene.
 const cubeDistanceFromCenter = cube.position.length()
