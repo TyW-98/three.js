@@ -1,3 +1,5 @@
+import * as THREE from 'three'
+
 const canvas = document.querySelector(".canvas");
 
 // Basic Red cube scene
