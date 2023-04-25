@@ -12,6 +12,7 @@ const material = new THREE.MeshBasicMaterial({ color: "orange" });
 
 const cube = new THREE.Mesh(geometry, material);
 cube.position.set(-0.5, -0.75, -1)
+cube.scale.set(2,1,1)
 
 // Distance of cube from the center of the scene.
 const cubeDistanceFromCenter = cube.position.length()
@@ -20,7 +21,7 @@ console.log(cubeDistanceFromCenter)
 // Normalise the length of the cube
 // cube.position.normalize()
 
-// Add Axes helper visualisation 
+// Add Axes helper visualisation  (x = RED, y = GREEN, z = YELLOW)
 const axesHelper = new THREE.AxesHelper()
 scene.add(axesHelper)
 
