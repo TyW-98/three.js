@@ -61,7 +61,9 @@ const frames = () => {
   //  cube.rotation.y = elapsedTime;
 
   // Rotate cube on X and Y axis using mouse cursor position
-  camera.position.set(cursorPosition.x*Math.PI*2,cursorPosition.y*Math.PI*2,5)
+//   camera.position.set(cursorPosition.x*Math.PI*2,cursorPosition.y*Math.PI*2,5)
+
+  camera.position.set(Math.sin(cursorPosition.x * 2 * Math.PI) * 2, cursorPosition.y * 5, Math.cos(cursorPosition.x * 2 * Math.PI)* 3)
   camera.lookAt(cube.position)
 
   renderer.render(scene, camera);
