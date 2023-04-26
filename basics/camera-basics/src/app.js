@@ -11,11 +11,18 @@ const cube = new THREE.Mesh(
 scene.add(cube);
 
 const sizes = {
-    width: 800,
-    height: 600,
-}
+  width: 800,
+  height: 600,
+};
+const aspectRatio = sizes.width / sizes.height;
 // Perspective Camera attributes (FOV, aspect Ratio, closes object to show, furthest object to show).
-const camera = new THREE.PerspectiveCamera(45 ,sizes.width / sizes.height, 0.1, 100);
+// const camera = new THREE.PerspectiveCamera(45 ,sizes.width / sizes.height, 0.1, 100);
+const camera = new THREE.OrthographicCamera(
+  -3 * aspectRatio,
+  3 * aspectRatio,
+  3,
+  -3
+);
 camera.position.set(2, 2, 3);
 camera.lookAt(cube.position);
 scene.add(camera);
@@ -26,16 +33,16 @@ const renderer = new THREE.WebGLRenderer({
 
 renderer.setSize(sizes.width, sizes.height);
 
-const clock = new THREE.Clock()
+const clock = new THREE.Clock();
 
 const frames = () => {
-    const elapsedTime = clock.getElapsedTime()
+  const elapsedTime = clock.getElapsedTime();
 
-    cube.rotation.y = elapsedTime
+  cube.rotation.y = elapsedTime;
 
-    renderer.render(scene,camera)
+  renderer.render(scene, camera);
 
-    window.requestAnimationFrame(frames)
-}
+  window.requestAnimationFrame(frames);
+};
 
-frames()
+frames();
