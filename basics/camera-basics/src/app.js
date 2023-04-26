@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 const sizes = {
   width: 800,
@@ -9,11 +10,11 @@ const sizes = {
 const cursorPosition = {
   x: 0,
   y: 0,
-  z: 0
+  z: 0,
 };
 window.addEventListener("mousemove", (event) => {
   cursorPosition.x = event.clientX / sizes.width - 0.5;
-  cursorPosition.y = - (event.clientY / sizes.height - 0.5);
+  cursorPosition.y = -(event.clientY / sizes.height - 0.5);
   console.log(cursorPosition.x, cursorPosition.y);
 });
 
@@ -43,9 +44,13 @@ const camera = new THREE.PerspectiveCamera(
 //   0.1,
 //   100
 // );
-camera.position.set(0,0,5);
+camera.position.set(0, 0, 5);
 camera.lookAt(cube.position);
 scene.add(camera);
+
+// Create OrbitControls
+const control = new OrbitControls(camera, canvas)
+control.enableDamping = true;
 
 const renderer = new THREE.WebGLRenderer({
   canvas: canvas,
@@ -61,10 +66,12 @@ const frames = () => {
   //  cube.rotation.y = elapsedTime;
 
   // Rotate cube on X and Y axis using mouse cursor position
-//   camera.position.set(cursorPosition.x*Math.PI*2,cursorPosition.y*Math.PI*2,5)
+  //   camera.position.set(cursorPosition.x*Math.PI*2,cursorPosition.y*Math.PI*2,5)
 
-  camera.position.set(Math.sin(cursorPosition.x * 2 * Math.PI) * 2, cursorPosition.y * 5, Math.cos(cursorPosition.x * 2 * Math.PI)* 3)
-  camera.lookAt(cube.position)
+  //   camera.position.set(Math.sin(cursorPosition.x * 2 * Math.PI) * 2, cursorPosition.y * 5, Math.cos(cursorPosition.x * 2 * Math.PI)* 3)
+  //   camera.lookAt(cube.position);
+
+  control.update()
 
   renderer.render(scene, camera);
 
