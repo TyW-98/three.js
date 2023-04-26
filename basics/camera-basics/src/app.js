@@ -14,8 +14,8 @@ const sizes = {
     width: 800,
     height: 600,
 }
-
-const camera = new THREE.PerspectiveCamera(55 ,sizes.width / sizes.height);
+// Perspective Camera attributes (FOV, aspect Ratio, closes object to show, furthest object to show).
+const camera = new THREE.PerspectiveCamera(45 ,sizes.width / sizes.height, 0.1, 100);
 camera.position.set(2, 2, 3);
 camera.lookAt(cube.position);
 scene.add(camera);
