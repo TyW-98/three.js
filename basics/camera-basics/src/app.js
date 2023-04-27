@@ -18,8 +18,39 @@ window.addEventListener("resize", () => {
   // Update renderer size
   renderer.setSize(sizes.width, sizes.height);
   // For multiple screens
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 });
+
+// Set Canvas to full screen using double click but doesn't work for Safari
+// window.addEventListener("dblclick", () => {
+//   if (!document.fullscreenElement) {
+//     canvas.requestFullscreen();
+//   } else {
+//     document.exitFullscreen();
+//   }
+// });
+
+// Set canvas to full screen but also work for safari
+window.addEventListener("dblclick", () => {
+  const fullScreenElement = document.fullscreenElement || document.webkitFullscreenElement
+
+  if (!fullScreenElement) {
+    
+    if (canvas.requestFullscreen) {
+      canvas.requestFullscreen()
+    } else if (canvas.webkitRequestFullscreen) {
+      canvas.webkitRequestFullscreen()
+    }
+  } 
+  else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen()
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen()
+    }
+  }
+
+})
 
 // Get mouse cursor position
 const cursorPosition = {
@@ -73,7 +104,7 @@ const renderer = new THREE.WebGLRenderer({
 });
 
 renderer.setSize(sizes.width, sizes.height);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 const clock = new THREE.Clock();
 
