@@ -2,9 +2,55 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 const sizes = {
-  width: 800,
-  height: 600,
+  width: window.innerWidth,
+  height: window.innerHeight,
 };
+
+window.addEventListener("resize", () => {
+  // Update viewport size
+  sizes.width = window.innerWidth;
+  sizes.height = window.innerHeight;
+
+  // Update camera aspect ratio
+  camera.aspect = sizes.width / sizes.height;
+  camera.updateProjectionMatrix();
+
+  // Update renderer size
+  renderer.setSize(sizes.width, sizes.height);
+  // For multiple screens
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+});
+
+// Set Canvas to full screen using double click but doesn't work for Safari
+// window.addEventListener("dblclick", () => {
+//   if (!document.fullscreenElement) {
+//     canvas.requestFullscreen();
+//   } else {
+//     document.exitFullscreen();
+//   }
+// });
+
+// Set canvas to full screen but also work for safari
+window.addEventListener("dblclick", () => {
+  const fullScreenElement = document.fullscreenElement || document.webkitFullscreenElement
+
+  if (!fullScreenElement) {
+    
+    if (canvas.requestFullscreen) {
+      canvas.requestFullscreen()
+    } else if (canvas.webkitRequestFullscreen) {
+      canvas.webkitRequestFullscreen()
+    }
+  } 
+  else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen()
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen()
+    }
+  }
+
+})
 
 // Get mouse cursor position
 const cursorPosition = {
@@ -29,6 +75,7 @@ const cube = new THREE.Mesh(
 scene.add(cube);
 
 const aspectRatio = sizes.width / sizes.height;
+
 // Perspective Camera attributes (FOV, aspect Ratio, closes object to show, furthest object to show).
 const camera = new THREE.PerspectiveCamera(
   45,
@@ -49,7 +96,7 @@ camera.lookAt(cube.position);
 scene.add(camera);
 
 // Create OrbitControls
-const control = new OrbitControls(camera, canvas)
+const control = new OrbitControls(camera, canvas);
 control.enableDamping = true;
 
 const renderer = new THREE.WebGLRenderer({
@@ -57,6 +104,7 @@ const renderer = new THREE.WebGLRenderer({
 });
 
 renderer.setSize(sizes.width, sizes.height);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 const clock = new THREE.Clock();
 
@@ -71,7 +119,7 @@ const frames = () => {
   //   camera.position.set(Math.sin(cursorPosition.x * 2 * Math.PI) * 2, cursorPosition.y * 5, Math.cos(cursorPosition.x * 2 * Math.PI)* 3)
   //   camera.lookAt(cube.position);
 
-  control.update()
+  control.update();
 
   renderer.render(scene, camera);
 
